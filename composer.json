@@ -1,0 +1,24 @@
+{
+  "name": "Dijix/setLocale",
+  "type" : "library",
+  "description": "PSR7 compatible locale middleware to set the applicaiton locale depending on the visitors preferences",
+  "keywords": ["psr7", "locale", "middleware"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ian Grindley",
+      "email": "ian@dijix.com"
+    }
+  ],
+  "require": {
+    "psr/http-message": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+        "Dijix\\Locale\\": "src"
+    }
+  },
+  "require-dev": {
+    "slim/slim" : "^3.0"
+  }
+}
