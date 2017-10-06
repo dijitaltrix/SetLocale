@@ -57,7 +57,7 @@ final class setLocaleMiddlewareTest extends TestCase
 		// test setting locale from URI
 		$request = $this->mockRequest(null, "en_GB,en;q=0.8");
 
-		$this->setExpectedException('Exception');
+		$this->expectException('Exception');
 
 		$response = $mw($request, new Response(),
 			function (ServerRequestInterface $req, $res) {
