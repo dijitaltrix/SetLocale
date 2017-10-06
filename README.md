@@ -1,5 +1,7 @@
 # SetLocale
 [![Build Status](https://travis-ci.org/dijitaltrix/PSR7-SetLocale.svg?branch=master)](https://travis-ci.org/dijitaltrix/PSR7-SetLocale.svg?branch=master)
+[![Total Downloads](https://poser.pugx.org/dijix/setlocale/downloads)](https://packagist.org/packages/dijix/setlocale)
+[![License](https://poser.pugx.org/dijix/setlocale/license)](https://packagist.org/packages/dijix/setlocale)
 
 ## Description
 
@@ -7,7 +9,7 @@ Slim Framework middleware to set your applications locale
 
 This middleware sets your applications locale to the best match between your applications supported locales and your visitors preferred locales.
 
-It's designed to be used with the Slim Framework but is PSR7 compatible so should work elsewhere too.
+It's designed to be used with the [Slim Framework](https://www.slimframework.com) but is PSR7 compatible so should work elsewhere too.
 
 The visitors locale is determined in this order:
 
@@ -39,16 +41,16 @@ $ composer require dijix/setlocale
 // pass your settings as an array to the constructor.
 $app->add(new Dijix\Locale\setLocaleMiddleware([
 
-	// set the locales supported by the application
+	// set the locales supported by your application
 	"app_locales" => ["de_DE", "en_GB", "fr_FR", "pt_PT"],
 	
 	// set a default locale to fallback on if no match is found
 	"app_default" => "en_GB",
 	
-	// call PHP setlocale() function with LC_ALL
+	// call PHP setlocale(LC_ALL) to set the visitors locale?
 	"set_locale" => true,
 	
-	// strict or fuzzy matching of the locale codes
+	// strict or partial matching of the locale codes, e.g. "en" matches "en_GB"
 	"strict_match" => false,
 	
 	// override uri/headers locale, useful when setting locale from a cookie or user session
