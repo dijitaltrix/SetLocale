@@ -118,6 +118,33 @@ final class setLocaleMiddlewareTest extends TestCase
 		$this->assertEquals("fr_FR", $cl[0]);
 
 	}
+	
+	public function testOverride()
+	{
+		// setup middleware with application locales and default locale
+		$mw = new setLocaleMiddleware([
+			"app_locales" => ["de_DE", "en_GB", "fr_FR", "pt_PT"],
+			"app_default" => "en_GB",
+			"set_locale" => false,
+			"override" => "fr_FR",
+		]);
+
+		// test setting locale from URI
+		$request = $this->mockRequest();
+
+		$response = $mw($request, new Response(),
+			function (ServerRequestInterface $req, $res) {
+				return $res;
+			}
+		);
+
+		$this->assertInstanceOf(Response::class, $response);
+		// $this->assertNotEmpty($response->getAttribute("locale"));
+		$this->assertNotEmpty($response->getHeader("Content-language"));
+		$cl = $response->getHeader("Content-language");
+		$this->assertEquals("fr_FR", $cl[0]);
+
+	}
 
 	public function testDeUri()
 	{
