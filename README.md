@@ -3,7 +3,9 @@
 
 ## Description
 
-This PSR7 compatible middleware sets your applications locale to the best match between your supported locales and your visitors preferred locales.
+Slim Framework middleware to set your applications locale
+
+This middleware sets your applications locale to the best match between your applications supported locales and your visitors preferred locales.
 
 It's designed to be used with the Slim Framework but is PSR7 compatible so should work elsewhere too.
 
