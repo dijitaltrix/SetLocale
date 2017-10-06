@@ -17,6 +17,9 @@ php:
 # optionally specify a list of environments, for example to test different RDBMS
 # env:
 
+install:
+  - composer install
+
 # optionally set up exclutions and allowed failures in the matrix
 # matrix:
 
