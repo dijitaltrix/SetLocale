@@ -259,7 +259,7 @@ class setLocaleMiddleware {
 	 */
 	private function sanitiseCode($str)
 	{
-		return preg_replace("/^[a-zA-Z\_\-]+/", "", $str);
+		return preg_replace("/[^a-zA-Z\_\-]/", "", $str);
 	}
 	
 	/**
