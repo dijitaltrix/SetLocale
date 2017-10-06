@@ -1,16 +1,11 @@
-# PSR7-SetLocale Middleware
+# SetLocale-Middleware
 [![Build Status](https://travis-ci.org/dijitaltrix/PSR7-SetLocale.svg?branch=master)](https://travis-ci.org/dijitaltrix/PSR7-SetLocale.svg?branch=master)
 
 ## Description
 
-This PSR7 compatible middleware sets your applications locale to the best match between
-your supported locales and your visitors preferred locales.
+This PSR7 compatible middleware sets your applications locale to the best match between your supported locales and your visitors preferred locales.
 
-When a match has been found the middleware sets:
-The request attribute 'locale'
-The response 'Content-language' header
-It will (optionally) call setlocale(LC_ALL) on the matched locale - this can be toggled 
-with the set_locale flag.
+It's designed to be used with the Slim Framework but is PSR7 compatible so should work elsewhere too.
 
 The visitors locale is determined in this order:
 
@@ -19,10 +14,15 @@ The visitors locale is determined in this order:
 * The users browser accept-language header, it selects the best match
 * A default passed locale eg: en_GB
 
+When a match has been found the middleware sets:
+
+* The request attribute 'locale'
+* The response 'Content-language' header
+* It will (optionally) call setlocale(LC_ALL) on the matched locale - this can be toggled with the set_locale flag.
+
 ## Usage
 
 ```php
-
 // In Slim PHP framework 3
 
 // pass your settings as an array to the constructor.
@@ -44,14 +44,10 @@ $app->add(new Dijix\Locale\setLocaleMiddleware([
 	"override" => "pt_PT"
 
 ]));
-
 ```
 
 The locale middleware will set a request attribute which can be accessed as follows:
+
 ```php
-$locale = $request->getAttribute('locale');
+$locale = $request->getAttribute('locale');		// sets $locale to "en_GB"
 ```
-
-**Note:**
-
-The locale middleware sets the response Content-language header with the matching locale from your specifed app locales

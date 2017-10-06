@@ -1,8 +1,8 @@
 {
-  "name": "Dijix/setLocale",
+  "name": "dijix/setlocale",
   "type" : "library",
-  "description": "PSR7 compatible locale middleware to set the applicaiton locale depending on the visitors preferences",
-  "keywords": ["psr7", "locale", "middleware"],
+  "description": "Slim Framework middleware to set your applications locale",
+  "keywords": ["slim framework", "psr7", "locale", "middleware"],
   "license": "MIT",
   "authors": [
     {
