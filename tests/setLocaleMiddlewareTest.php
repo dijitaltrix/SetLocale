@@ -51,7 +51,7 @@ final class setLocaleMiddlewareTest extends TestCase
 		// setup middleware with application locales and default locale
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["xx_XX"],
-			"app_default" => "xx_XX"
+			"app_default" => "xx_XX",
 		]);
 
 		// test setting locale from URI
@@ -72,7 +72,8 @@ final class setLocaleMiddlewareTest extends TestCase
 		// setup middleware with application locales and default locale
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "pt_PT"],
-			"app_default" => "en_GB"
+			"app_default" => "en_GB",
+			"set_locale" = false,
 		]);
 
 		// test setting locale from URI
@@ -97,7 +98,8 @@ final class setLocaleMiddlewareTest extends TestCase
 		// setup middleware with application locales and default locale
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "fr_FR", "pt_PT"],
-			"app_default" => "fr_FR"
+			"app_default" => "fr_FR",
+			"set_locale" = false,
 		]);
 
 		// test setting locale from URI
@@ -121,8 +123,9 @@ final class setLocaleMiddlewareTest extends TestCase
 	{
 		// setup middleware with application locales and default locale
 		$mw = new setLocaleMiddleware([
-			"app_locales" => ["en_GB", "pt_PT"],
-			"app_default" => "en_GB"
+			"app_locales" => ["de_DE", "en_GB", "pt_PT"],
+			"app_default" => "en_GB",
+			"set_locale" = false,
 		]);
 
 		// test setting locale from URI
@@ -138,7 +141,33 @@ final class setLocaleMiddlewareTest extends TestCase
 		// $this->assertNotEmpty($response->getAttribute("locale"));
 		$this->assertNotEmpty($response->getHeader("Content-language"));
 		$cl = $response->getHeader("Content-language");
-		$this->assertEquals("en_GB", $cl[0]);
+		$this->assertEquals("de_DE", $cl[0]);
+
+	}
+	
+	public function testDeUriWithEnHeaders()
+	{
+		// setup middleware with application locales and default locale
+		$mw = new setLocaleMiddleware([
+			"app_locales" => ["de_DE", "en_GB", "pt_PT"],
+			"app_default" => "en_GB",
+			"set_locale" = false,
+		]);
+
+		// test setting locale from URI
+		$request = $this->mockRequest("de/wilkommen", "en_GB,en;q=0.8");
+
+		$response = $mw($request, new Response(),
+			function (ServerRequestInterface $req, $res) {
+				return $res;
+			}
+		);
+
+		$this->assertInstanceOf(Response::class, $response);
+		// $this->assertNotEmpty($response->getAttribute("locale"));
+		$this->assertNotEmpty($response->getHeader("Content-language"));
+		$cl = $response->getHeader("Content-language");
+		$this->assertEquals("de_DE", $cl[0]);
 
 	}
 
@@ -147,7 +176,8 @@ final class setLocaleMiddlewareTest extends TestCase
 		// setup middleware with application locales and default locale
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "pt_PT"],
-			"app_default" => "en_GB"
+			"app_default" => "en_GB",
+			"set_locale" = false,
 		]);
 
 		// test setting locale from URI
@@ -172,7 +202,8 @@ final class setLocaleMiddlewareTest extends TestCase
 		// setup middleware with application locales and default locale
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "pt_PT"],
-			"app_default" => "en_GB"
+			"app_default" => "en_GB",
+			"set_locale" = false,
 		]);
 
 		// test setting locale from URI
@@ -197,7 +228,8 @@ final class setLocaleMiddlewareTest extends TestCase
 		// setup middleware with application locales and default locale
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "pt_PT"],
-			"app_default" => "en_GB"
+			"app_default" => "en_GB",
+			"set_locale" = false,
 		]);
 
 		// test setting locale from URI
@@ -216,13 +248,40 @@ final class setLocaleMiddlewareTest extends TestCase
 		$this->assertEquals("pt_PT", $cl[0]);
 
 	}
+	
+	public function testDeDEUri()
+	{
+		// setup middleware with application locales and default locale
+		$mw = new setLocaleMiddleware([
+			"app_locales" => ["de_DE", "en_GB", "pt_PT"],
+			"app_default" => "en_GB",
+			"set_locale" = false,
+		]);
+
+		// test setting locale from URI
+		$request = $this->mockRequest("de/wilkommen");
+
+		$response = $mw($request, new Response(),
+			function (ServerRequestInterface $req, $res) {
+				return $res;
+			}
+		);
+
+		$this->assertInstanceOf(Response::class, $response);
+		// $this->assertNotEmpty($response->getAttribute("locale"));
+		$this->assertNotEmpty($response->getHeader("Content-language"));
+		$cl = $response->getHeader("Content-language");
+		$this->assertEquals("de_DE", $cl[0]);
+
+	}
 
 	public function testDeHeaders()
 	{
 		// setup middleware with application locales and default locale
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "pt_PT"],
-			"app_default" => "en_GB"
+			"app_default" => "en_GB",
+			"set_locale" = false,
 		]);
 
 		// test setting locale from URI
@@ -247,7 +306,8 @@ final class setLocaleMiddlewareTest extends TestCase
 		// setup middleware with application locales and default locale
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "pt_PT"],
-			"app_default" => "en_GB"
+			"app_default" => "en_GB",
+			"set_locale" = false,
 		]);
 
 		// test setting locale from URI
@@ -271,8 +331,9 @@ final class setLocaleMiddlewareTest extends TestCase
 	{
 		// setup middleware with application locales and default locale
 		$mw = new setLocaleMiddleware([
-			"app_locales" => ["en_GB", "pt_PT"],
-			"app_default" => "en_GB"
+			"app_locales" => ["en_US", "pt_PT"],
+			"app_default" => "en_US",
+			"set_locale" = false,
 		]);
 
 		// test setting locale from URI
@@ -288,7 +349,7 @@ final class setLocaleMiddlewareTest extends TestCase
 		// $this->assertNotEmpty($response->getAttribute("locale"));
 		$this->assertNotEmpty($response->getHeader("Content-language"));
 		$cl = $response->getHeader("Content-language");
-		$this->assertEquals("en_GB", $cl[0]);
+		$this->assertEquals("en_US", $cl[0]);
 
 	}
 
@@ -297,7 +358,8 @@ final class setLocaleMiddlewareTest extends TestCase
 		// setup middleware with application locales and default locale
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "pt_PT"],
-			"app_default" => "en_GB"
+			"app_default" => "en_GB",
+			"set_locale" = false,
 		]);
 
 		// test setting locale from URI
