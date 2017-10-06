@@ -1,4 +1,5 @@
 # PSR7-SetLocale Middleware
+[![Build Status](https://travis-ci.org/dijitaltrix/PSR7-SetLocale.svg?branch=master)](https://travis-ci.org/dijitaltrix/PSR7-SetLocale.svg?branch=master)
 
 ## Description
 
@@ -17,7 +18,6 @@ The visitors locale is determined in this order:
 * The first segment of the URI eg: example.com/en/welcome or example.com/en-gb/welcome.
 * The users browser accept-language header, it selects the best match
 * A default passed locale eg: en_GB
-
 
 ## Usage
 
