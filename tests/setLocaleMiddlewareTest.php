@@ -73,7 +73,7 @@ final class setLocaleMiddlewareTest extends TestCase
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "pt_PT"],
 			"app_default" => "en_GB",
-			"set_locale" = false,
+			"set_locale" => false,
 		]);
 
 		// test setting locale from URI
@@ -99,7 +99,7 @@ final class setLocaleMiddlewareTest extends TestCase
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "fr_FR", "pt_PT"],
 			"app_default" => "fr_FR",
-			"set_locale" = false,
+			"set_locale" => false,
 		]);
 
 		// test setting locale from URI
@@ -125,7 +125,7 @@ final class setLocaleMiddlewareTest extends TestCase
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["de_DE", "en_GB", "pt_PT"],
 			"app_default" => "en_GB",
-			"set_locale" = false,
+			"set_locale" => false,
 		]);
 
 		// test setting locale from URI
@@ -151,7 +151,7 @@ final class setLocaleMiddlewareTest extends TestCase
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["de_DE", "en_GB", "pt_PT"],
 			"app_default" => "en_GB",
-			"set_locale" = false,
+			"set_locale" => false,
 		]);
 
 		// test setting locale from URI
@@ -177,7 +177,7 @@ final class setLocaleMiddlewareTest extends TestCase
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "pt_PT"],
 			"app_default" => "en_GB",
-			"set_locale" = false,
+			"set_locale" => false,
 		]);
 
 		// test setting locale from URI
@@ -203,7 +203,7 @@ final class setLocaleMiddlewareTest extends TestCase
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "pt_PT"],
 			"app_default" => "en_GB",
-			"set_locale" = false,
+			"set_locale" => false,
 		]);
 
 		// test setting locale from URI
@@ -229,7 +229,7 @@ final class setLocaleMiddlewareTest extends TestCase
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "pt_PT"],
 			"app_default" => "en_GB",
-			"set_locale" = false,
+			"set_locale" => false,
 		]);
 
 		// test setting locale from URI
@@ -255,7 +255,7 @@ final class setLocaleMiddlewareTest extends TestCase
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["de_DE", "en_GB", "pt_PT"],
 			"app_default" => "en_GB",
-			"set_locale" = false,
+			"set_locale" => false,
 		]);
 
 		// test setting locale from URI
@@ -281,7 +281,7 @@ final class setLocaleMiddlewareTest extends TestCase
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "pt_PT"],
 			"app_default" => "en_GB",
-			"set_locale" = false,
+			"set_locale" => false,
 		]);
 
 		// test setting locale from URI
@@ -307,7 +307,7 @@ final class setLocaleMiddlewareTest extends TestCase
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "pt_PT"],
 			"app_default" => "en_GB",
-			"set_locale" = false,
+			"set_locale" => false,
 		]);
 
 		// test setting locale from URI
@@ -333,7 +333,7 @@ final class setLocaleMiddlewareTest extends TestCase
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_US", "pt_PT"],
 			"app_default" => "en_US",
-			"set_locale" = false,
+			"set_locale" => false,
 		]);
 
 		// test setting locale from URI
@@ -359,7 +359,7 @@ final class setLocaleMiddlewareTest extends TestCase
 		$mw = new setLocaleMiddleware([
 			"app_locales" => ["en_GB", "pt_PT"],
 			"app_default" => "en_GB",
-			"set_locale" = false,
+			"set_locale" => false,
 		]);
 
 		// test setting locale from URI

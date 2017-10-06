@@ -118,7 +118,8 @@ class setLocaleMiddleware {
 		$request = $request->withAttribute('locale', $locale);
 		$response = $response->withHeader("Content-language", $locale);
 
-		// try set locale, will throw exception if the locale is not available on your system
+		// try to set the users preferred locale, this will throw an exception if
+		// the locale is not available on your system
 		if ( ! setlocale($this->set_locale, $locale)) {
 			throw new \Exception("Cannot set locale to $locale");
 		}
@@ -127,29 +128,40 @@ class setLocaleMiddleware {
 
 	}
 	
+	/**
+	 * Matches the preferred locales list to your application locales
+	 * Accepts an array formated as locale => weight
+	 * e.g. ["en_GB" => 1.0, "en" => 0.8]
+	 *
+	 * Returns the matched locale string 
+	 * or boolean false if no match found
+	 *
+	 * @param array $list
+	 * @return mixed (string | boolean)
+	 * @author Ian Grindley
+	 */
 	private function match($list)
 	{
-		// sort array by locale weight
+		// sort array by locale weight, highest first
 		arsort($list);
 
-		// run through lists and return first matching pair
+		// compare preferred locales in turn against each
+		// supported application locale
 		foreach ($list as $l=>$w) {
 			// normalise locale for str comparison
-			$l = $this->normalise($l);
+			$code = $this->normaliseCode($l);
+			// compare each application locale against user pref
 			foreach ($this->app_locales as $app_locale) {
-
 				if ($this->strict_match) {
-					if ($this->normalise($app_locale) == $l) {
+					if ($this->normaliseCode($app_locale) == $code) {
 						return $app_locale;
 					}
 				} else {
-					if (strstr($this->normalise($app_locale), $l)) {
+					if (strstr($this->normaliseCode($app_locale), $code)) {
 						return $app_locale;
 					}
 				}
-
 			}
-
 		}
 
 		return false;
@@ -157,8 +169,8 @@ class setLocaleMiddleware {
 	}
 
 	/**
-	 * matches the language in the request headers
-	 * returns locale code if match found
+	 * matches any of the the locale codes in the request headers
+	 * returns best fit locale code if match found
 	 * or false if no match found
 	 *
 	 * @param string $request 
@@ -175,8 +187,9 @@ class setLocaleMiddleware {
 		foreach ($headers as $str) {
 			// array_merge adds the missing weight 1 to preferred locale
 			list($l, $w) = array_merge(explode(";q=", $str), ["1.0"]);
-			if ( ! empty($l)) {
-				$prefs[$l] = $w;
+			$code = $this->sanitiseCode($l);
+			if ($this->isValidCode($code)) {
+				$prefs[$code] = (float) $w;
 			}
 		};
 
@@ -186,7 +199,7 @@ class setLocaleMiddleware {
 	}
 	
 	/**
-	 * matches the langugae code given in teh override variable
+	 * matches the locale code given in the override variable
 	 * returns the matched $app_locale code if found
 	 * or false if no match found
 	 *
@@ -196,9 +209,11 @@ class setLocaleMiddleware {
 	 */
 	private function matchOverride($str=null)
 	{
-		if ($str) {
+		$code = $this->sanitiseCode($str);
+		
+		if ($this->isValidCode($code)) {
 			return $this->match([
-				$str => 1
+				$code => 1
 			]);
 		}
 
@@ -207,7 +222,7 @@ class setLocaleMiddleware {
 	}
 
 	/**
-	 * matches the langugae code in the first segment of the URI
+	 * matches the language code in the first segment of the URI
 	 * returns the matched $app_locale code if found
 	 * or false if no match found
 	 *
@@ -217,18 +232,34 @@ class setLocaleMiddleware {
 	 */
 	private function matchUri($uri)
 	{
+		// get the first segment from the URI path
 		$segments = explode("/", ltrim($uri->getpath(), "/"));
-
 		if (isset($segments[0]) && ! empty($segments[0])) {
-			return $this->match([
-				$segments[0] => 1
-			]);
+			// sanitise the first segment which should contain the locale
+			$code = $this->sanitiseCode($segments[0]);
+			if ($this->isValidCode($code)) {
+				return $this->match([
+					$code => 1
+				]);
+			}
 		}
 
 		return false;
 
 	}
 
+	/**
+	 * Sanitises a locale code string accepting a-z dash - and underscore _
+	 *
+	 * @param string $str 
+	 * @return void
+	 * @author Ian Grindley
+	 */
+	private function sanitiseCode($str)
+	{
+		return preg_replace("/^[a-zA-Z\_\-]+/", "", $str);
+	}
+	
 	/**
 	 * Normalises a locale code for str comparison,
 	 * e.g. from en_GB to en-gb
@@ -237,9 +268,26 @@ class setLocaleMiddleware {
 	 * @return void
 	 * @author Ian Grindley
 	 */
-	private function normalise($str)
+	private function normaliseCode($str)
 	{
 		return strtolower(str_replace('_', '-', $str));
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @param string $str 
+	 * @return boolean
+	 * @author Ian Grindley
+	 */
+	private function isValidCode($str) 
+	{
+		if (1 === preg_match("/(^[a-z]{2}$|^[a-z]{2}(_|-)[a-z|A-Z]{2}$)/", $str)) {
+			return true;
+		}
+
+		return false;
+
 	}
 
 }
