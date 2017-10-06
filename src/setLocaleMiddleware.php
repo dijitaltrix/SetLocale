@@ -1,10 +1,4 @@
 <?php
-/**
- * Sets the application locale based on:
- *	a) First url segment
- *	b) HTTP Accept-Language header
- *	c) the default
- */
 
 namespace Dijix\Locale;
 
