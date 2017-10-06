@@ -120,8 +120,10 @@ class setLocaleMiddleware {
 
 		// try to set the users preferred locale, this will throw an exception if
 		// the locale is not available on your system
-		if ( ! setlocale($this->set_locale, $locale)) {
-			throw new \Exception("Cannot set locale to $locale");
+		if ($this->set_locale === true) {
+			if ( ! setlocale($this->set_locale, $locale)) {
+				throw new \Exception("Cannot set locale to $locale");
+			}
 		}
 
 		return $next($request, $response);
