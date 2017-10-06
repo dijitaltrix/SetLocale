@@ -22,9 +22,13 @@ addons:
   apt:
     packages:
       - locales
+      - language-pack-de-base
       - language-pack-de
+      - language-pack-en-base
       - language-pack-en
+      - language-pack-fr-base
       - language-pack-fr
+      - language-pack-pt-base
       - language-pack-pt
 
 # composer must install everything we need before running
