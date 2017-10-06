@@ -69,7 +69,7 @@ class setLocaleMiddleware {
 		$opts = array_merge([
 			"app_locales" => ["en-gb"],
 			"app_default" => ["en-gb"],
-			"set_locale" => LC_ALL,
+			"set_locale" => true,
 			"strict_match" => false,
 			"override" => null,
 		], $opts);
