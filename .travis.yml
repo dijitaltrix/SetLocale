@@ -17,6 +17,17 @@ php:
 # optionally specify a list of environments, for example to test different RDBMS
 # env:
 
+# setup locales used in phpunit tests
+addons:
+  apt:
+    packages:
+      - locales
+      - language-pack-de
+      - language-pack-en
+      - language-pack-fr
+      - language-pack-pt
+
+# composer must install everything we need before running
 install:
   - composer install
 
