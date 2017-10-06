@@ -101,15 +101,15 @@ class setLocaleMiddleware {
 		if ($this->override) {
 			$locale = $this->matchOverride($this->override);
 		}
-		// no match, check against URI
+		// no match, now check against URI
 		if ( ! $locale) {
 			$locale = $this->matchUri($request->getUri());
 		}
-		// no match check against headers
+		// no match, now check against headers
 		if ( ! $locale) {
 			$locale = $this->matchHeader($request->getHeader("Accept-language"));
 		}
-		// no match set default
+		// no match so set default
 		if ( ! $locale) {
 			$locale = $this->app_default;
 		}
@@ -152,8 +152,10 @@ class setLocaleMiddleware {
 		foreach ($list as $l=>$w) {
 			// normalise locale for str comparison
 			$code = $this->normaliseCode($l);
+
 			// compare each application locale against user pref
 			foreach ($this->app_locales as $app_locale) {
+
 				if ($this->strict_match) {
 					if ($this->normaliseCode($app_locale) == $code) {
 						return $app_locale;
@@ -163,6 +165,7 @@ class setLocaleMiddleware {
 						return $app_locale;
 					}
 				}
+
 			}
 		}
 
@@ -190,6 +193,7 @@ class setLocaleMiddleware {
 			// array_merge adds the missing weight 1 to preferred locale
 			list($l, $w) = array_merge(explode(";q=", $str), ["1.0"]);
 			$code = $this->sanitiseCode($l);
+
 			if ($this->isValidCode($code)) {
 				$prefs[$code] = (float) $w;
 			}
