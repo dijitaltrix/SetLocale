@@ -1,4 +1,4 @@
-# SetLocale-Middleware
+# SetLocale
 [![Build Status](https://travis-ci.org/dijitaltrix/PSR7-SetLocale.svg?branch=master)](https://travis-ci.org/dijitaltrix/PSR7-SetLocale.svg?branch=master)
 
 ## Description
@@ -9,21 +9,30 @@ It's designed to be used with the Slim Framework but is PSR7 compatible so shoul
 
 The visitors locale is determined in this order:
 
-* An override e.g. from a cookie you have set
+* An override passed to the middleware constructor e.g. from an existing cookie/session
 * The first segment of the URI eg: example.com/en/welcome or example.com/en-gb/welcome.
-* The users browser accept-language header, it selects the best match
-* A default passed locale eg: en_GB
+* The users browser accept-language header, where it selects the best match
+* A default passed locale eg: en_GB, used as a fallback if none of the above match
 
 When a match has been found the middleware sets:
 
 * The request attribute 'locale'
 * The response 'Content-language' header
-* It will (optionally) call setlocale(LC_ALL) on the matched locale - this can be toggled with the set_locale flag.
+* It will set the environment by calling setlocale(LC_ALL) on the matched locale - this can be toggled with the set_locale flag.
+
+## Installation
+
+Install via composer
+```bash
+$ composer require dijix/setlocale
+````
 
 ## Usage
 
 ```php
 // In Slim PHP framework 3
+
+// add the middleware to your app, often in the middleware.php or dependencies.php file
 
 // pass your settings as an array to the constructor.
 $app->add(new Dijix\Locale\setLocaleMiddleware([
@@ -40,7 +49,7 @@ $app->add(new Dijix\Locale\setLocaleMiddleware([
 	// strict or fuzzy matching of the locale codes
 	"strict_match" => false,
 	
-	// override uri/headers with this locale useful when fetched from a cookie or user session
+	// override uri/headers locale, useful when setting locale from a cookie or user session
 	"override" => "pt_PT"
 
 ]));
